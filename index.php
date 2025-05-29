@@ -1,0 +1,703 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ICT for Social Change: Interactive Guide</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Visualization & Content Choices:
+            - Handout 1 (ICT & Social Change): Ogburn's Theory (Goal: Inform/Organize, Method: Interactive clickable definition cards, Interaction: Click to reveal details, Justification: Clear presentation of distinct concepts, Library: HTML/JS/Tailwind). ICT in PH History & Social Media Movements (Goal: Inform/Compare, Method: Interactive timeline/card layout, Interaction: Click to expand, Justification: Chronological/thematic grouping for clarity, Library: HTML/JS/Tailwind).
+            - Handout 2 (Crafting Project): Scope Statement Elements, Requirement Gathering Techniques, Audience Profiling Stages, Progress Report Sections (Goal: Organize/Inform, Method: Accordions/Tabs/Clickable lists, Interaction: Click to expand/reveal, Justification: Step-by-step exploration of processes and components, Library: HTML/JS/Tailwind).
+            - Handout 3 (Launching Project): Content Marketing Effects, SEO, Traffic Metrics, Feedback Types & Usage (Goal: Inform/Organize, Method: Clickable info cards/lists, Interaction: Click to reveal details, Justification: Easy digestion of lists and guidelines, Library: HTML/JS/Tailwind).
+            - Chart.js/Plotly.js: While CDN is included as per general instructions, no quantitative data suitable for charting (bar, line, pie, etc.) is present in the source handouts. Thus, no canvas charts are implemented. Focus is on interactive textual and conceptual information display.
+            - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+        <style>
+            body { font-family: 'Inter', sans-serif; }
+            .nav-link { transition: all 0.3s ease; }
+            .nav-link.active { background-color: #0D9488; color: white; } /* teal-600 */
+            .nav-link:not(.active):hover { background-color: #CCFBF1; color: #134E4A; } /* teal-100 text-teal-700 */
+            .content-section { display: none; }
+            .content-section.active { display: block; }
+            .interactive-card { cursor: pointer; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+            .interactive-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+            .details { display: none; margin-top: 0.75rem; padding: 0.75rem; background-color: #F8FAFC; border-radius: 0.375rem; border: 1px solid #E2E8F0; } /* bg-slate-50 border-slate-200 */
+            .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        </style>
+    </head>
+    <body class="bg-stone-100 text-neutral-800">
+        <header class="bg-white shadow-md sticky top-0 z-50">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                <div class="flex flex-col sm:flex-row justify-between items-center">
+                    <h1 class="text-2xl font-bold text-teal-700 mb-2 sm:mb-0">ICT for Social Change: An Interactive Guide</h1>
+                    <div class="flex flex-wrap justify-center space-x-1 sm:space-x-2">
+                        <button data-target="ict-social-change" class="nav-link active text-sm font-medium py-2 px-3 rounded-md">ICT & Social Change</button>
+                        <button data-target="crafting-project" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Crafting Your Project</button>
+                        <button data-target="launching-project" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Launching & Growing</button>
+                        <button data-target="quiz-section" class="nav-link text-sm font-medium py-2 px-3 rounded-md">Quiz</button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-20">
+            <section id="ict-social-change" class="content-section active">
+                <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <h2 class="text-3xl font-bold text-teal-600 mb-4">ICT as a Platform for Change</h2>
+                    <p class="mb-4 text-lg">Information and Communication Technology (ICT) is a powerful medium for advocacy and driving social change. It leverages online platforms to promote causes, disseminate information, and mobilize communities. This section explores the theories behind technology's role in societal shifts, historical examples, and the profound impact of social media.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-3">Ogburn's Theory on Technology & Social Change</h3>
+                        <p class="mb-3">William Fielding Ogburn proposed that technology is the primary driver of social change, highlighting three stages of technical development:</p>
+                        <div id="ogburn-stages" class="space-y-3">
+                            <div class="interactive-card bg-orange-50 p-4 rounded-md border border-orange-200 group" data-details="ogburn-invention">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-orange-700">1. Invention</h4>
+                                    <svg class="w-4 h-4 text-orange-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                <div class="details" id="ogburn-invention">New forms of technology are developed. E.g., the computer and communication tech allowed rapid info spread and social networking.</div>
+                            </div>
+                            <div class="interactive-card bg-orange-50 p-4 rounded-md border border-orange-200 group" data-details="ogburn-discovery">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-orange-700">2. Discovery</h4>
+                                    <svg class="w-4 h-4 text-orange-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                <div class="details" id="ogburn-discovery">New ways of understanding reality. E.g., computer tech changed how people perceive and acquire info about distant events.</div>
+                            </div>
+                            <div class="interactive-card bg-orange-50 p-4 rounded-md border border-orange-200 group" data-details="ogburn-diffusion">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-orange-700">3. Diffusion</h4>
+                                    <svg class="w-4 h-4 text-orange-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                <div class="details" id="ogburn-diffusion">The spread of technology to other areas. E.g., computer tech spread from America/Europe to Asia/Africa, with cultural adjustments.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-3">ICT in Philippine History</h3>
+                        <p class="mb-3">ICT has played a pivotal role in several key historical moments in the Philippines:</p>
+                        <div class="space-y-3">
+                            <div class="interactive-card bg-sky-50 p-4 rounded-md border border-sky-200 group" data-details="ph-edsa1">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-sky-700">EDSA People Power (1986)</h4>
+                                    <svg class="w-4 h-4 text-sky-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                <div class="details" id="ph-edsa1">Cardinal Sin's call to action via radio broadcast (Radio Veritas) mobilized citizens.</div>
+                            </div>
+                            <div class="interactive-card bg-sky-50 p-4 rounded-md border border-sky-200 group" data-details="ph-edsa2">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-sky-700">EDSA II (2001)</h4>
+                                    <svg class="w-4 h-4 text-sky-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                <div class="details" id="ph-edsa2">Text messaging was used to mobilize people against President Estrada.</div>
+                            </div>
+                            <div class="interactive-card bg-sky-50 p-4 rounded-md border border-sky-200 group" data-details="ph-philaware">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-sky-700">PhilAWARE Application</h4>
+                                    <svg class="w-4 h-4 text-sky-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                <div class="details" id="ph-philaware">Aims to increase disaster resilience through crowd-sourced reporting and government validation.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">The Social Power of Social Media</h3>
+                    <p class="mb-3">Social media is a prime tool for spreading advocacies. Explore some impactful movements:</p>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                        <div class="interactive-card bg-rose-50 p-4 rounded-md border border-rose-200 group" data-details="sm-hk">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-rose-700">Hong Kong Protests (2019)</h4>
+                                    <svg class="w-4 h-4 text-rose-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            <div class="details" id="sm-hk">Used for live news and action info against an extradition bill.</div>
+                        </div>
+                        <div class="interactive-card bg-rose-50 p-4 rounded-md border border-rose-200 group" data-details="sm-als">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-rose-700">ALS Ice Bucket Challenge (2014)</h4>
+                                    <svg class="w-4 h-4 text-rose-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            <div class="details" id="sm-als">Raised money and awareness for ALS via a viral nomination challenge.</div>
+                        </div>
+                        <div class="interactive-card bg-rose-50 p-4 rounded-md border border-rose-200 group" data-details="sm-blm">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-rose-700">Black Lives Matter (2013+)</h4>
+                                    <svg class="w-4 h-4 text-rose-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            <div class="details" id="sm-blm">Online community using #BlackLivesMatter against anti-black racism.</div>
+                        </div>
+                        <div class="interactive-card bg-rose-50 p-4 rounded-md border border-rose-200 group" data-details="sm-metoo">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-rose-700">Me Too Movement (2017+)</h4>
+                                    <svg class="w-4 h-4 text-rose-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            <div class="details" id="sm-metoo">Solidarity for sexual harassment survivors using #MeToo.</div>
+                        </div>
+                        <div class="interactive-card bg-rose-50 p-4 rounded-md border border-rose-200 group" data-details="sm-million">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-semibold text-rose-700">Million People March (PH, 2013)</h4>
+                                    <svg class="w-4 h-4 text-rose-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            <div class="details" id="sm-million">Protest against Pork Barrel fund scam, organized via social media.</div>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-semibold text-teal-600 my-3">How Social Media Promotes Social Justice:</h4>
+                    <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
+                        <li class="interactive-card bg-emerald-50 p-3 rounded-md border border-emerald-200" data-details="sm-justice-coord">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-emerald-700">Coordinating Community Responses:</span>
+                                <svg class="w-4 h-4 text-emerald-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                            <div class="details text-sm" id="sm-justice-coord">Creates online spaces for support and idea-sharing.</div>
+                        </li>
+                        <li class="interactive-card bg-emerald-50 p-3 rounded-md border border-emerald-200" data-details="sm-justice-platform">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-emerald-700">Platforming Lived Experience:</span>
+                                <svg class="w-4 h-4 text-emerald-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                            <div class="details text-sm" id="sm-justice-platform">Amplifies stories of minorities and underrepresented groups.</div>
+                        </li>
+                        <li class="interactive-card bg-emerald-50 p-3 rounded-md border border-emerald-200" data-details="sm-justice-share">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-emerald-700">Sharing Pictures and Videos:</span>
+                                <svg class="w-4 h-4 text-emerald-500 transform transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                            <div class="details text-sm" id="sm-justice-share">Documents events and redirects narratives.</div>
+                        </li>
+                    </ul>
+                    <h4 class="text-xl font-semibold text-teal-600 my-3">Related Terms:</h4>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                            <h5 class="font-bold text-amber-700">Slacktivism</h5>
+                            <p class="text-sm">Simple online measures to support a social movement (e.g., signing petitions, reposting statuses/images).</p>
+                        </div>
+                        <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                            <h5 class="font-bold text-amber-700">Cancel Culture</h5>
+                            <p class="text-sm">Withdrawing support for public figures/companies over controversial acts, often a form of online shaming.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="crafting-project" class="content-section">
+                <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <h2 class="text-3xl font-bold text-teal-600 mb-4">Crafting Your ICT Project for Social Change</h2>
+                    <p class="mb-4 text-lg">Successfully developing an ICT project for social change requires careful planning, conceptualization, and understanding your audience. This section delves into defining project scope, gathering requirements, profiling your target audience, and the essentials of project construction and reporting.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-3">Planning & Conceptualizing</h3>
+                        <p class="mb-2">A <strong>Project Scope Statement</strong> is crucial. Its elements include:</p>
+                        <div class="space-y-2">
+                            <div class="accordion-item bg-orange-50 border border-orange-200 rounded-md">
+                                <button class="accordion-header w-full text-left p-3 font-semibold text-orange-700 flex justify-between items-center">
+                                    Description <span>&#9660;</span>
+                                </button>
+                                <div class="accordion-content p-3 text-sm">States the overview of the project concisely.</div>
+                            </div>
+                            <div class="accordion-item bg-orange-50 border border-orange-200 rounded-md">
+                                <button class="accordion-header w-full text-left p-3 font-semibold text-orange-700 flex justify-between items-center">
+                                    Deliverables <span>&#9660;</span>
+                                </button>
+                                <div class="accordion-content p-3 text-sm">Key features/outcomes (e.g., budget report, design drawing).</div>
+                            </div>
+                            <div class="accordion-item bg-orange-50 border border-orange-200 rounded-md">
+                                <button class="accordion-header w-full text-left p-3 font-semibold text-orange-700 flex justify-between items-center">
+                                    Acceptance Criteria <span>&#9660;</span>
+                                </button>
+                                <div class="accordion-content p-3 text-sm">Specific conditions for completion (e.g., 50 views, 15 shares).</div>
+                            </div>
+                            <div class="accordion-item bg-orange-50 border border-orange-200 rounded-md">
+                                <button class="accordion-header w-full text-left p-3 font-semibold text-orange-700 flex justify-between items-center">
+                                    Constraints <span>&#9660;</span>
+                                </button>
+                                <div class="accordion-content p-3 text-sm">Limitations/risks (time, money, scope - the triple constraints).</div>
+                            </div>
+                            <div class="accordion-item bg-orange-50 border border-orange-200 rounded-md">
+                                <button class="accordion-header w-full text-left p-3 font-semibold text-orange-700 flex justify-between items-center">
+                                    Exclusions <span>&#9660;</span>
+                                </button>
+                                <div class="accordion-content p-3 text-sm">What is NOT included in the project.</div>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold text-teal-600 mt-4 mb-2">Techniques for Gathering Requirements:</h4>
+                        <div class="space-y-2">
+                            <div class="interactive-card bg-sky-50 p-3 rounded-md border border-sky-200" data-details="req-brainstorm">
+                                <h5 class="font-medium text-sky-700">Brainstorming</h5>
+                                <div class="details text-sm" id="req-brainstorm">Group idea generation and filtering.</div>
+                            </div>
+                            <div class="interactive-card bg-sky-50 p-3 rounded-md border border-sky-200" data-details="req-nominal">
+                                <h5 class="font-medium text-sky-700">Nominal Group Technique</h5>
+                                <div class="details text-sm" id="req-nominal">Structured: problem intro -> silent idea generation -> sharing -> prioritization.</div>
+                            </div>
+                            <div class="interactive-card bg-sky-50 p-3 rounded-md border border-sky-200" data-details="req-delphi">
+                                <h5 class="font-medium text-sky-700">Delphi Technique</h5>
+                                <div class="details text-sm" id="req-delphi">Collects expert opinions via multiple question rounds, refining to consensus.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-3">Audience Profiling</h3>
+                        <p class="mb-2">Understanding your audience is key. This involves acquiring data and segmenting it.</p>
+                        <h4 class="text-lg font-semibold text-teal-600 mt-3 mb-1">Four Stages of Audience Profiling:</h4>
+                        <div class="grid grid-cols-2 gap-2 mb-3">
+                            <div class="interactive-card bg-rose-50 p-2 rounded-md border border-rose-200 text-center" data-details="ap-segment">
+                                <h5 class="font-medium text-rose-700 text-sm">Segmentation</h5>
+                                <div class="details text-xs" id="ap-segment">Dividing audience by demographics, psychographics etc.</div>
+                            </div>
+                            <div class="interactive-card bg-rose-50 p-2 rounded-md border border-rose-200 text-center" data-details="ap-message">
+                                <h5 class="font-medium text-rose-700 text-sm">Messaging</h5>
+                                <div class="details text-xs" id="ap-message">Developing tailored messages for segments.</div>
+                            </div>
+                            <div class="interactive-card bg-rose-50 p-2 rounded-md border border-rose-200 text-center" data-details="ap-engage">
+                                <h5 class="font-medium text-rose-700 text-sm">Engagement</h5>
+                                <div class="details text-xs" id="ap-engage">Understanding when/where engagement drops.</div>
+                            </div>
+                            <div class="interactive-card bg-rose-50 p-2 rounded-md border border-rose-200 text-center" data-details="ap-measure">
+                                <h5 class="font-medium text-rose-700 text-sm">Measurement</h5>
+                                <div class="details text-xs" id="ap-measure">Quantifying reach to fine-tune approach.</div>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold text-teal-600 mt-3 mb-1">Steps for Target Audience Profile:</h4>
+                        <ul class="list-decimal list-inside space-y-1 text-sm">
+                            <li>Collecting Data (surveys for demographics)</li>
+                            <li>Analyzing Psychographics (interests, attitudes)</li>
+                            <li>Combining Data (for a targeted approach)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">Constructing the ICT Project: Progress Report</h3>
+                    <p class="mb-3">A progress report is vital for tracking and communication. Consider these factors:</p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-emerald-50 p-4 rounded-md border border-emerald-200">
+                            <h4 class="font-semibold text-emerald-700 mb-1">1. Tone</h4>
+                            <p class="text-sm">Clear, concise, honest. Avoid defensive language. Explain mistakes.</p>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-md border border-emerald-200">
+                            <h4 class="font-semibold text-emerald-700 mb-1">2. Format</h4>
+                            <p class="text-sm">Consistent template, headings (Project Info, Work Completed, Schedule).</p>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-md border border-emerald-200">
+                            <h4 class="font-semibold text-emerald-700 mb-1">3. Content</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li><strong>Subject Line:</strong> Name & Date.</li>
+                                <li><strong>Introduction:</strong> Title, date, participants, status.</li>
+                                <li><strong>Body:</strong> Costs, work completed, schedule, complications.</li>
+                                <li><strong>Conclusion:</strong> Summary, delays, recommendations.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="launching-project" class="content-section">
+                <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <h2 class="text-3xl font-bold text-teal-600 mb-4">Launching & Growing Your ICT Project</h2>
+                    <p class="mb-4 text-lg">Publishing your ICT project is a significant milestone. To ensure its success and sustainability, understanding content marketing, traffic monitoring, and how to effectively use feedback is crucial. This section covers these key aspects to help your project reach its intended audience and thrive.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-3">Content Marketing & SEO</h3>
+                        <p class="mb-2">A strategic approach to create and distribute valuable content.</p>
+                        <h4 class="text-lg font-semibold text-teal-600 mt-3 mb-1">Advertising Effects:</h4>
+                        <div class="space-y-2 mb-3">
+                            <div class="interactive-card bg-orange-50 p-3 rounded-md border border-orange-200" data-details="cm-aware">
+                                <h5 class="font-medium text-orange-700">Awareness</h5>
+                                <div class="details text-sm" id="cm-aware">Increased visibility on platforms. Stick to core message.</div>
+                            </div>
+                            <div class="interactive-card bg-orange-50 p-3 rounded-md border border-orange-200" data-details="cm-loyal">
+                                <h5 class="font-medium text-orange-700">Loyalty</h5>
+                                <div class="details text-sm" id="cm-loyal">Builds audience trust and repeat interaction.</div>
+                            </div>
+                            <div class="interactive-card bg-orange-50 p-3 rounded-md border border-orange-200" data-details="cm-author">
+                                <h5 class="font-medium text-orange-700">Authority</h5>
+                                <div class="details text-sm" id="cm-author">Become a leader in shaping narratives. Post accurate content.</div>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold text-teal-600 mt-3 mb-1">SEO & Keyword Optimization:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-sm">
+                            <li>Focus on 1-2 keywords (avoid stuffing).</li>
+                            <li>Use keywords in the title (question-based ideal).</li>
+                            <li>Use long-tail keywords naturally.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold text-teal-600 mb-3">Traffic Monitoring</h3>
+                        <p class="mb-2">Tracking content engagement is vital.</p>
+                        <h4 class="text-lg font-semibold text-teal-600 mt-3 mb-1">Key Metrics:</h4>
+                        <div class="space-y-2">
+                            <div class="interactive-card bg-sky-50 p-3 rounded-md border border-sky-200" data-details="tm-unique">
+                                <h5 class="font-medium text-sky-700">Unique Pageviews</h5>
+                                <div class="details text-sm" id="tm-unique">Number of distinct visitors.</div>
+                            </div>
+                            <div class="interactive-card bg-sky-50 p-3 rounded-md border border-sky-200" data-details="tm-sources">
+                                <h5 class="font-medium text-sky-700">Traffic Sources</h5>
+                                <div class="details text-sm" id="tm-sources">Where traffic comes from (direct, referral, search).</div>
+                            </div>
+                            <div class="interactive-card bg-sky-50 p-3 rounded-md border border-sky-200" data-details="tm-shares">
+                                <h5 class="font-medium text-sky-700">Social Media Shares</h5>
+                                <div class="details text-sm" id="tm-shares">More shares = wider organic reach.</div>
+                            </div>
+                            <div class="interactive-card bg-sky-50 p-3 rounded-md border border-sky-200" data-details="tm-other">
+                                <h5 class="font-medium text-sky-700">Other Social Engagements</h5>
+                                <div class="details text-sm" id="tm-other">Reactions, likes, retweets, upvotes provide direct feedback.</div>
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold text-teal-600 mt-4 mb-2">Content Strategy to Boost:</h4>
+                        <div class="flex space-x-2 text-sm">
+                            <span class="bg-rose-100 text-rose-700 px-2 py-1 rounded-full">Paid Advertising</span>
+                            <span class="bg-rose-100 text-rose-700 px-2 py-1 rounded-full">Brand Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">Feedback and Interaction</h3>
+                    <p class="mb-2">Soliciting and using feedback optimizes content.</p>
+                    <h4 class="text-lg font-semibold text-teal-600 mt-3 mb-1">Key Figures for Feedback:</h4>
+                    <div class="grid sm:grid-cols-3 gap-3 mb-3">
+                        <div class="bg-emerald-50 p-3 rounded-md border border-emerald-200">
+                            <h5 class="font-medium text-emerald-700">Ratings</h5>
+                            <p class="text-xs">Using a defined scale (e.g., 5-star).</p>
+                        </div>
+                        <div class="bg-emerald-50 p-3 rounded-md border border-emerald-200">
+                            <h5 class="font-medium text-emerald-700">Acknowledgments</h5>
+                            <p class="text-xs">Likes, favorites, upvotes, virtual gifts.</p>
+                        </div>
+                        <div class="bg-emerald-50 p-3 rounded-md border border-emerald-200">
+                            <h5 class="font-medium text-emerald-700">Comments</h5>
+                            <p class="text-xs">Text feedback; can spark discussion, may need moderation.</p>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-semibold text-teal-600 mt-3 mb-1">Ways to Use Feedback in Content Marketing:</h4>
+                    <div class="space-y-2">
+                        <div class="accordion-item bg-purple-50 border border-purple-200 rounded-md">
+                            <button class="accordion-header w-full text-left p-3 font-semibold text-purple-700 flex justify-between items-center">
+                                Creating content addressing questions <span>&#9660;</span>
+                            </button>
+                            <div class="accordion-content p-3 text-sm">Personalized responses, makes audience feel seen.</div>
+                        </div>
+                        <div class="accordion-item bg-purple-50 border border-purple-200 rounded-md">
+                            <button class="accordion-header w-full text-left p-3 font-semibold text-purple-700 flex justify-between items-center">
+                                Sharing positive reviews/comments <span>&#9660;</span>
+                            </button>
+                            <div class="accordion-content p-3 text-sm">Shows appreciation, serves as testimonials.</div>
+                        </div>
+                        <div class="accordion-item bg-purple-50 border border-purple-200 rounded-md">
+                            <button class="accordion-header w-full text-left p-3 font-semibold text-purple-700 flex justify-between items-center">
+                                Tailored interactions <span>&#9660;</span>
+                            </button>
+                            <div class="accordion-content p-3 text-sm">Personalized responses enhance connection.</div>
+                        </div>
+                        <div class="accordion-item bg-purple-50 border border-purple-200 rounded-md">
+                            <button class="accordion-header w-full text-left p-3 font-semibold text-purple-700 flex justify-between items-center">
+                                Improving campaigns & promotions <span>&#9660;</span>
+                            </button>
+                            <div class="accordion-content p-3 text-sm">Use negative feedback to refine strategies (collaborators, imagery, ad exposure).</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="quiz-section" class="content-section">
+                <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+                    <h2 class="text-3xl font-bold text-teal-600 mb-4">Test Your Knowledge</h2>
+                    <p class="mb-4 text-lg">Challenge yourself with questions from each section to reinforce your understanding of ICT for social change.</p>
+                    
+                    <div id="quiz-categories" class="grid md:grid-cols-3 gap-6">
+                        <div class="transform transition-all duration-300 hover:scale-105">
+                            <div class="bg-orange-50 p-6 rounded-xl border-2 border-orange-200 cursor-pointer hover:bg-orange-100 hover:shadow-lg relative overflow-hidden group" onclick="startQuiz('ict-social-change')">
+                                <div class="absolute top-0 right-0 w-16 h-16 bg-orange-200 transform rotate-45 translate-x-8 -translate-y-8 group-hover:bg-orange-300 transition-colors duration-300"></div>
+                                <div class="relative z-10">
+                                    <div class="text-3xl mb-3">🌐</div>
+                                    <h3 class="font-bold text-orange-700 text-xl mb-2">ICT & Social Change</h3>
+                                    <p class="text-sm text-orange-600 mb-3">Test your knowledge about Ogburn's Theory and ICT's role in social movements.</p>
+                                    <div class="flex items-center text-orange-500">
+                                        <span class="mr-2">Start Quiz</span>
+                                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="transform transition-all duration-300 hover:scale-105">
+                            <div class="bg-emerald-50 p-6 rounded-xl border-2 border-emerald-200 cursor-pointer hover:bg-emerald-100 hover:shadow-lg relative overflow-hidden group" onclick="startQuiz('crafting-project')">
+                                <div class="absolute top-0 right-0 w-16 h-16 bg-emerald-200 transform rotate-45 translate-x-8 -translate-y-8 group-hover:bg-emerald-300 transition-colors duration-300"></div>
+                                <div class="relative z-10">
+                                    <div class="text-3xl mb-3">🛠️</div>
+                                    <h3 class="font-bold text-emerald-700 text-xl mb-2">Crafting Your Project</h3>
+                                    <p class="text-sm text-emerald-600 mb-3">Questions about project planning, scope statements, and audience profiling.</p>
+                                    <div class="flex items-center text-emerald-500">
+                                        <span class="mr-2">Start Quiz</span>
+                                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="transform transition-all duration-300 hover:scale-105">
+                            <div class="bg-sky-50 p-6 rounded-xl border-2 border-sky-200 cursor-pointer hover:bg-sky-100 hover:shadow-lg relative overflow-hidden group" onclick="startQuiz('launching-project')">
+                                <div class="absolute top-0 right-0 w-16 h-16 bg-sky-200 transform rotate-45 translate-x-8 -translate-y-8 group-hover:bg-sky-300 transition-colors duration-300"></div>
+                                <div class="relative z-10">
+                                    <div class="text-3xl mb-3">🚀</div>
+                                    <h3 class="font-bold text-sky-700 text-xl mb-2">Launching & Growing</h3>
+                                    <p class="text-sm text-sky-600 mb-3">Test your understanding of content marketing, SEO, and feedback usage.</p>
+                                    <div class="flex items-center text-sky-500">
+                                        <span class="mr-2">Start Quiz</span>
+                                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quiz-container" class="hidden transform transition-all duration-500">
+                        <div class="mb-4">
+                            <button onclick="returnToCategories()" class="text-teal-600 hover:text-teal-700 transition-colors duration-300">
+                                <span class="inline-block transform transition-transform duration-300 hover:-translate-x-1">←</span> Back to Categories
+                            </button>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-lg transform transition-all duration-500">
+                            <div class="mb-4 p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span id="question-number" class="text-sm font-medium bg-teal-50 text-teal-600 px-3 py-1 rounded-full transition-all duration-300">Question 1/20</span>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="text-sm font-medium text-teal-600">Score:</span>
+                                        <span id="score" class="text-sm font-bold bg-teal-50 text-teal-600 px-3 py-1 rounded-full transition-all duration-300">0</span>
+                                    </div>
+                                </div>
+                                <div class="relative w-full bg-neutral-200 rounded-full h-3 mt-4">
+                                    <div id="progress-bar" class="absolute top-0 left-0 bg-teal-600 h-3 rounded-full transition-all duration-500 ease-out" style="width: 5%">
+                                        <div class="absolute right-0 top-0 h-full w-2 bg-white opacity-50 rounded-full animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <p id="question-text" class="text-lg font-medium mb-6 transform transition-all duration-500"></p>
+                                <div id="options" class="space-y-3"></div>
+                            </div>
+                        </div>
+                        <!-- Celebration Animation Container -->
+                        <div id="celebration" class="hidden fixed inset-0 pointer-events-none">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="celebration-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center py-6 bg-neutral-200 text-neutral-600 text-sm fixed bottom-0 left-0 right-0 z-50">
+            <p>&copy; <span id="currentYear"></span> Interactive Guide to ICT for Social Change. All information derived from provided handouts.</p>
+        </footer>
+
+    <script src="quiz-questions.js"></script>
+    <script>
+        let currentQuiz = null;
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const interactiveCards = document.querySelectorAll('.interactive-card');
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Quiz functionality
+            window.startQuiz = function(category) {
+                currentQuiz = category;
+                currentQuestions = quizQuestions[category];
+                currentQuestionIndex = 0;
+                score = 0;
+                
+                document.getElementById('quiz-categories').classList.add('hidden');
+                document.getElementById('quiz-container').classList.remove('hidden');
+                
+                showQuestion();
+            };
+
+            window.returnToCategories = function() {
+                document.getElementById('quiz-categories').classList.remove('hidden');
+                document.getElementById('quiz-container').classList.add('hidden');
+                currentQuiz = null;
+            };
+
+            function showQuestion() {
+                const question = currentQuestions[currentQuestionIndex];
+                const questionText = document.getElementById('question-text');
+                const optionsContainer = document.getElementById('options');
+                const questionNumber = document.getElementById('question-number');
+                const scoreDisplay = document.getElementById('score');
+                const progressBar = document.getElementById('progress-bar');
+                
+                questionText.textContent = question.question;
+                optionsContainer.innerHTML = '';
+                
+                question.options.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'w-full text-left p-4 rounded-lg border-2 border-neutral-200 hover:border-teal-400 hover:bg-teal-50 transition-all duration-300 transform hover:scale-102 hover:shadow-md';
+                    button.textContent = option;
+                    button.onclick = () => checkAnswer(index);
+                    optionsContainer.appendChild(button);
+                });
+                
+                questionNumber.textContent = `Question ${currentQuestionIndex + 1}/${currentQuestions.length}`;
+                scoreDisplay.textContent = `Score: ${score}`;
+                progressBar.style.width = `${((currentQuestionIndex + 1) / currentQuestions.length) * 100}%`;
+            }
+
+            function checkAnswer(selectedIndex) {
+                const question = currentQuestions[currentQuestionIndex];
+                const options = document.querySelectorAll('#options button');
+                
+                options.forEach(button => button.disabled = true);
+                
+                if (selectedIndex === question.correct) {
+                    options[selectedIndex].classList.add('bg-green-100', 'border-green-500', 'transform', 'scale-105', 'shadow-lg');
+                    // Show celebration animation for correct answer
+                    if (selectedIndex === question.correct) {
+                        const celebration = document.getElementById('celebration');
+                        celebration.classList.remove('hidden');
+                        setTimeout(() => celebration.classList.add('hidden'), 1500);
+                    }
+                    score++;
+                } else {
+                    options[selectedIndex].classList.add('bg-red-100', 'border-red-500', 'transform', 'scale-105', 'shake');
+                    options[question.correct].classList.add('bg-green-100', 'border-green-500', 'transform', 'scale-105', 'shadow-lg');
+                }
+                
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < currentQuestions.length) {
+                        showQuestion();
+                    } else {
+                        showResults();
+                    }
+                }, 1500);
+            }
+
+            function showResults() {
+                const container = document.getElementById('quiz-container');
+                container.innerHTML = `
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-teal-600 mb-4">Quiz Complete!</h3>
+                        <p class="text-lg mb-4">Your score: ${score}/${currentQuestions.length}</p>
+                        <button onclick="returnToCategories()" class="bg-teal-600 text-white px-6 py-2 rounded-md hover:bg-teal-700">
+                            Try Another Category
+                        </button>
+                    </div>
+                `;
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const targetId = this.getAttribute('data-target');
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            interactiveCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const detailsId = this.getAttribute('data-details');
+                    const detailsElement = document.getElementById(detailsId);
+                    if (detailsElement) {
+                        detailsElement.style.display = detailsElement.style.display === 'block' ? 'none' : 'block';
+                    }
+                });
+                 // Add ARIA attributes for accessibility
+                card.setAttribute('role', 'button');
+                card.setAttribute('tabindex', '0');
+                card.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        this.click();
+                    }
+                });
+            });
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function () {
+                    const content = this.nextElementSibling;
+                    const arrow = this.querySelector('span');
+                    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                        content.style.maxHeight = '0px';
+                        arrow.innerHTML = '&#9660;'; // Down arrow
+                        this.setAttribute('aria-expanded', 'false');
+                    } else {
+                        // Close other accordions in the same group if you want one-at-a-time behavior
+                        // const group = this.closest('.space-y-2'); // or parent container
+                        // if (group) {
+                        //     group.querySelectorAll('.accordion-content').forEach(ac => ac.style.maxHeight = '0px');
+                        //     group.querySelectorAll('.accordion-header span').forEach(ar => ar.innerHTML = '&#9660;');
+                        // }
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        arrow.innerHTML = '&#9650;'; // Up arrow
+                        this.setAttribute('aria-expanded', 'true');
+                    }
+                });
+                // Add ARIA attributes
+                header.setAttribute('aria-expanded', 'false');
+                const contentId = header.nextElementSibling.id || 'acc-content-' + Math.random().toString(36).substr(2, 9);
+                header.nextElementSibling.id = contentId;
+                header.setAttribute('aria-controls', contentId);
+
+            });
+        });
+    </script>
+</body>
+</html>
